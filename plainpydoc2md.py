@@ -95,7 +95,7 @@ def findAllModules(cmdargs):
             sys.path.append(pkgdir)
         pkg = doImport(pkgname)
         if pkg is None:
-            raise FileNotFoundError(f"Unable to import '{inputStr}'")
+            raise FileNotFoundError(f"Unable to import '{cmdargs.input}'")
         modulelist = [pkg]
         if hasattr(pkg, '__path__'):
             # This is genuinely a package, so we search recursively for
