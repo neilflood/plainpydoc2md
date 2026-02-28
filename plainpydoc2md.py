@@ -224,7 +224,7 @@ def processMethod(obj, classname, f):
     # Hide all special methods except __init__, which is escaped with '\'
     if methname.startswith("__") and methname.endswith("__"):
         if methname == "__init__":
-            methname = f"\\{methname}"
+            methname = "\_\_init\_\_"
         else:
             methname = None
 
