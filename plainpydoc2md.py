@@ -12,9 +12,6 @@ formatting, but rather they are just copied over as plain text. In most cases,
 programmers make their docstrings readable in a text editor anyway, so this is
 usually sufficient, even if not very fancy.
 
-We make heavy use of the inspect module to understand each object and find
-its docstring.
-
 """
 import sys
 import os
