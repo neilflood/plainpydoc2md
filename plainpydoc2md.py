@@ -42,10 +42,6 @@ def getCmdargs():
               "a single underscore). Default will leave these hidden."))
     cmdargs = p.parse_args()
 
-    if cmdargs.noflatten:
-        raise NotImplementedError(
-            "The --noflatten option is not yet implemented")
-
     return cmdargs
 
 
@@ -134,7 +130,17 @@ def openOutfile(modObj, cmdargs):
     Open the output Markdown file for the given module
     """
     modName = modObj.__name__
-    filename = os.path.join(cmdargs.outdir, f"{modName}.md")
+    if cmdargs.noflatten:
+        subpkglist = modName.split('.')
+        outdir = cmdargs.outdir
+        if len(subpkglist) > 1:
+            subdirs = os.path.join(*subpkglist[:-1])
+            outdir = os.path.join(cmdargs.outdir, subdirs)
+        filename = os.path.join(outdir, f"{subpkglist[-1]}.md")
+        if not os.path.isdir(outdir):
+            os.makedirs(outdir)
+    else:
+        filename = os.path.join(cmdargs.outdir, f"{modName}.md")
     f = open(filename, 'w')
     print(f"# {modName}", file=f)
     return f
