@@ -39,7 +39,7 @@ def getCmdargs():
               "the structure into a single output directory"))
     p.add_argument("--includeprivate", default=False, action="store_true",
         help=("Include private objects (i.e. those whose names begin with " +
-              "a single underscore). Default will leave these hidden."))
+              "an underscore). Default will leave these hidden."))
     cmdargs = p.parse_args()
 
     return cmdargs
