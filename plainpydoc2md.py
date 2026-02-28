@@ -159,7 +159,7 @@ def processModule(modObj, cmdargs):
     if len(valueList) > 0:
         print("## Values", file=f)
         for (name, val) in valueList:
-            print(f"    {name} = {val}", file=f)
+            print(f"    {name} = {repr(val)}", file=f)
 
 
 def importedVal(modFile, obj):
