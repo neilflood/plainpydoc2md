@@ -22,6 +22,9 @@ import importlib
 import glob
 
 
+__version__ = '1.0.0'
+
+
 def getCmdargs():
     "Get command line arguments"
     p = argparse.ArgumentParser()
@@ -30,11 +33,22 @@ def getCmdargs():
         "a Python package name, or the top directory of a Python package"))
     p.add_argument("-o", "--outdir",
         help="Output directory to write Markdown files")
-    p.add_argument("--flatten", default=False, action="store_true",
-        help=("Flatten any directory structure and place all output files " +
-              "in one directory (default places output files in " +
-              "corresponding directory structure)"))
+    p.add_argument("--noflatten", default=False, action="store_true",
+        help=("For package input, write output Markdown files into a " +
+              "corresponding directory structure. Default will flatten " +
+              "the structure into a single output directory"))
+    p.add_argument("--includeprivate", default=False, action="store_true",
+        help=("Include private objects (i.e. those whose names begin with " +
+              "a single underscore). Default will leave these hidden."))
     cmdargs = p.parse_args()
+
+    if cmdargs.noflatten:
+        raise NotImplementedError(
+            "The --noflatten option is not yet implemented")
+    if cmdargs.includeprivate:
+        raise NotImplementedError(
+            "The --includeprivate option is not yet implemented")
+
     return cmdargs
 
 
@@ -74,23 +88,30 @@ def findAllModules(cmdargs):
             if modObj is not None:
                 modulelist.append(modObj)
     else:
-        # Assume we have a package, either as path to top dir or simple
-        # package name
+        # Assume we have a name to import, either as path to package top dir
+        # or simple package/module name
         (pkgdir, pkgname) = os.path.split(cmdargs.input)
         if pkgdir not in sys.path:
             sys.path.append(pkgdir)
         pkg = doImport(pkgname)
-        if pkgdir == '':
-            pkgdirlist = pkg.__path__
+        if not hasattr(pkg, '__path__'):
+            # This is a single module, rather than a package, so we don't
+            # need to search it
+            modulelist = [pkg]
         else:
-            pkgdirlist = [pkgdir]
-        modulelist = []
-        for modinfo in pkgutil.walk_packages(pkgdirlist, pkgname + '.'):
-            if not modinfo.ispkg:
-                modObj = doImport(modinfo.name)
-                if modObj is not None:
-                    modulelist.append(modObj)
-            # Not yet sure what to do with package docstrings, so ignoring them
+            # This is genuinely a package, so we search recursively for
+            # modules and sub-packages
+            if pkgdir == '':
+                pkgdirlist = pkg.__path__
+            else:
+                pkgdirlist = [pkgdir]
+            modulelist = []
+            for modinfo in pkgutil.walk_packages(pkgdirlist, pkgname + '.'):
+                if not modinfo.ispkg:
+                    modObj = doImport(modinfo.name)
+                    if modObj is not None:
+                        modulelist.append(modObj)
+                # Not yet sure what to do with package docstrings, so ignoring them
 
     return modulelist
 
