@@ -1,0 +1,29 @@
+# The installation requires pip>=23.0. If not, it will fail in rather
+# cryptic ways (depending exactly what options are used).
+#
+
+[build-system]
+requires = ["setuptools>=77.0.3", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plainpydoc2md"
+dynamic = ["version"]
+authors = [
+  {name = "Neil Flood"}
+]
+description = "Produce simple Markdown files of Python docstrings"
+readme = "README.md"
+license = "MIT"
+
+[project.scripts]
+plainpydoc2md = "plainpydoc2md:mainCmd"
+
+[tool.setuptools]
+py-modules = ["plainpydoc2md"]
+
+[tool.setuptools.dynamic]
+version = {attr = "plainpydoc2md.__version__"}
+
+[project.urls]
+Repository = "https://github.com/ubarsc/plainpydoc2md.git"
