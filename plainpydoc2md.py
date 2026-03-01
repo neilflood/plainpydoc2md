@@ -290,6 +290,7 @@ def processMethod(obj, classname, hidePrivate, f):
     elif hidePrivate and isPrivate(methname):
         methname = None
     elif methClassName != classname:
+        # Hide inherited methods
         methname = None
 
     if methname is not None:
