@@ -2,7 +2,7 @@
 Convert plain Python docstrings into Markdown files
 
 This is intended for simple projects, where things like Sphinx and ReadTheDocs are more complex
-than desired. The main value is writing Markdown is that this can be stored directly into
+than desired. The main value of writing Markdown is that this can be stored directly into
 a Git repository and will be rendered directly in a web browser when viewed on Guthub. This
 makes for very direct availablity of the Python documentation.
 
