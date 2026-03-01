@@ -11,8 +11,11 @@ occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
 anim id est laborum.
 
 """
+# Import a module, a function and a class, to check that they are all
+# excluded from the output
 import os
-import tempfile
+from tempfile import mkstemp, TemporaryDirectory
+from os import rename
 
 
 class MyBaseClass:
