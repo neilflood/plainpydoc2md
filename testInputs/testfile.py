@@ -62,7 +62,7 @@ class MyClass(MyBaseClass):
           arg1 : int
             The first argument is pretty important
           arg2 : float
-            The second argument is also important. Infact, it is so important
+            The second argument is also important. In fact, it is so important
             that its description runs over two lines
 
         Returns
