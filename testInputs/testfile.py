@@ -15,14 +15,14 @@ import os
 import tempfile
 
 
-class MySuperClass:
+class MyBaseClass:
     def baseFunc(self):
         """
         This method is on the super class
         """
 
 
-class MyClass(MySuperClass):
+class MyClass(MyBaseClass):
     """
     Class docstring
 
