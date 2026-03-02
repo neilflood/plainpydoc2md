@@ -40,8 +40,8 @@ def getCmdargs():
     "Get command line arguments"
     p = argparse.ArgumentParser(description="""
         Convert plain Python docstrings into Markdown files. The main value
-        in writing Markdown is that Github will render it directly in a web
-        browser by Github
+        of writing Markdown is that it will be rendered directly in a web
+        browser when viewed on Github
         """)
     p.add_argument("-i", "--input", help=("Input specification. Can be " +
         "either a Python filename, a directory containing .py files, " +
@@ -251,7 +251,8 @@ def processClass(obj, f, hidePrivate):
     Output Markdown for the given class object
     """
     classname = obj.__name__
-    baseclassNames = [c.__name__ for c in obj.__bases__ if c.__name__ != "object"]
+    baseclassNames = [c.__name__ for c in obj.__bases__
+                      if c.__name__ != "object"]
     fullClassname = classname
     if len(baseclassNames) > 0:
         fullClassname = f"{classname}({'.'.join(baseclassNames)})"
